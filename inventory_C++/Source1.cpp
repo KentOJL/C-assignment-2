@@ -187,9 +187,9 @@ void stock_manage()
 void addproducts();
 void addproducts()
 {
-	char prod_name_list[100][30];
-	static int prod_id_list[100][5], prod_quant_list[100][5];
-	double prod_price_list[100][5];
+	//char prod_name_list[100][30];
+	//static int prod_id_list[100][5], prod_quant_list[100][5];
+	//double prod_price_list[100][5];
 
 	int new_prod_quant;
 	int new_prod_price, new_prod_id;
