@@ -351,7 +351,7 @@ void delproducts()
 		}
 		
 
-		int j = sizeof(prod_id_list) / sizeof(prod_id_list[0]);
+		int j = i;
 
 		for (int z = 0; z < j; z++)
 		{
