@@ -3,97 +3,157 @@
 #include <string>
 #include <cmath>
 #include <fstream>
-#include <array>
 #include <cstring>
 #include <cctype>
 using namespace std;
 const int MAX_PRODUCTS = 100;
 
+void menu();
+void exit();
+void error_input();
+void stock_manage();
+void addproducts();
+void delproducts();
+void display_stock();
+void update_quant();
+void update_price();
+void update_name();
+void stock_out();
+void search_item();
+void insuff_stock();
+
 
 //menu function
-void menu();
 void menu()
 {
 	int menu_num;
-	cout << "\t   MMMMM     MMMMM     EEEEEEEEE  NNNNNN       NNN  UUU    UUU\n";
-	cout << "\t  MMMMMMM   MMMMMMM    EEEEEEEEE  NNN NNN      NNN  UUU    UUU\n";
-	cout << "\tMMM      MMM      MMM  EEE        NNN  NNN     NNN  UUU    UUU\n";
-	cout << "\tMMM      MMM      MMM  EEEEEEEEE  NNN   NNN    NNN  UUU    UUU\n";
-	cout << "\tMMM      MMM      MMM  EEEEEEEEE  NNN    NNN   NNN  UUU    UUU\n";
-	cout << "\tMMM      MMM      MMM  EEE        NNN     NNN  NNN  UUU    UUU\n";
-	cout << "\tMMM      MMM      MMM  EEEEEEEEE  NNN      NNN NNN  UUUUUUUUUU\n";
-	cout << "\tMMM      MMM      MMM  EEEEEEEEE  NNN       NNNNNN  UUUUUUUUUU\n";
+	cout << "\033[35m";
+	cout << "\t\t   MMMMM     MMMMM     EEEEEEEEE  NNNNNN       NNN  UUU    UUU\n";
+	cout << "\t\t  MMMMMMM   MMMMMMM    EEEEEEEEE  NNN NNN      NNN  UUU    UUU\n";
+	cout << "\t\tMMM      MMM      MMM  EEE        NNN  NNN     NNN  UUU    UUU\n";
+	cout << "\t\tMMM      MMM      MMM  EEEEEEEEE  NNN   NNN    NNN  UUU    UUU\n";
+	cout << "\t\tMMM      MMM      MMM  EEEEEEEEE  NNN    NNN   NNN  UUU    UUU\n";
+	cout << "\t\tMMM      MMM      MMM  EEE        NNN     NNN  NNN  UUU    UUU\n";
+	cout << "\t\tMMM      MMM      MMM  EEEEEEEEE  NNN      NNN NNN  UUUUUUUUUU\n";
+	cout << "\t\tMMM      MMM      MMM  EEEEEEEEE  NNN       NNNNNN  UUUUUUUUUU\n";
+	cout << "\t\t**************************************************************\n";
+	cout << "\t\t**************************************************************\n";
+	cout << "\033[0m\033[39m" << endl;
 	cout << endl;
-	cout << "\t****************************************************************\n";
-	cout << "\t****************************************************************\n";
-	cout << endl;
+	
+
+
+	// Output the text
+	cout << "\033[35m\033[48;2;251;163;142m";
 	cout << "1. Display Stock\n\n";
 	cout << "2. Stock Management\n\n";
 	cout << "3. Check Insufficient stock\n\n";
 	cout << "4. Exit Program\n\n";
-	
-	cout << "Please enter your choice here(1-4): ";
-	cin >> menu_num;
-	
-	switch (menu_num)
-	{
-	case 1: 
-		system("cls");
-		display_stock();
-		break;
-	
-	case 2: 
-		system("cls");
-		stock_manage();
-		break;
-	
-	case 3: 
-		system("cls");
-		insuff_stock();
-		break;
-	
-	case 4: 
-		system("cls");
-		cout << endl;
-		cout << "\t\tBBBBBBBB   YYY    YYY  EEEEEEEEE\n";
-		cout << "\t\tBBBB  BBB  YYY    YYY  EEEEEEEEE\n";
-		cout << "\t\tBBBB   BBB YYY    YYY  EEE      \n";
-		cout << "\t\tBBBB  BBB  YYY    YYY  EEE      \n";
-		cout << "\t\tBBBBBBBB     YYYYYY    EEEEEEEEE\n";
-		cout << "\t\tBBBB  BBB     YYYY     EEE      \n";
-		cout << "\t\tBBBB   BBB    YYYY     EEE      \n";
-		cout << "\t\tBBBB  BBB     YYYY     EEEEEEEEE\n";
-		cout << "\t\tBBBBBBBB      YYYY     EEEEEEEEE\n";
-		break;
-	
-	default:
-	
-		system("cls");
-		cout << endl;
-		cout << "EEEEEEEEE RRRRRRRR   RRRRRRRR   OOOOOOOOO RRRRRRRR\n";
-		cout << "EEEEEEEEE RRR   RRR  RRR   RRR  OOOOOOOOO RRR   RRR\n";
-		cout << "EEE       RRR    RRR RRR    RRR OOO   OOO RRR    RRR\n";
-		cout << "EEEEEEEEE RRR  RRRR  RRR  RRRR  OOO   OOO RRR  RRRR\n";
-		cout << "EEEEEEEEE RRRRRRRR   RRRRRRRR   OOO   OOO RRRRRRRR \n";
-		cout << "EEE       RRR    RRR RRR    RRR OOO   OOO RRR    RRR\n";
-		cout << "EEEEEEEEE RRR    RRR RRR    RRR OOOOOOOOO RRR    RRR\n";
-		cout << "EEEEEEEEE RRR    RRR RRR    RRR OOOOOOOOO RRR    RRR\n";
-		cout << endl;
-		cout << "Error Code 101: Invalid Input Number!!!\n";
-		menu();
-		break;
-	
-	}
+	cout << "\033[0m";
+	cout << endl;
+	bool is_valid_input = false;
+	do {
+		// Prompt the user to enter their choice
+		cout << "\033[35m\033[48;2;251;163;142m";
+		cout << "Please enter your choice here(1-4): ";
+		cin >> menu_num;
+		cout << "\033[0m";
+
+		switch (menu_num)
+		{
+		case 1:
+			system("cls");
+			display_stock();
+			is_valid_input = true;
+			break;
+
+		case 2:
+			system("cls");
+			stock_manage();
+			is_valid_input = true;
+			break;
+
+		case 3:
+			system("cls");
+			insuff_stock();
+			is_valid_input = true;
+			break;
+
+		case 4:
+			system("cls");
+			exit();
+			is_valid_input = true;
+			break;
+
+		default:
+			// Output error message
+			error_input();
+			is_valid_input = false;
+			break;
+		}
+		cout << endl; // Add a line break for clarity
+	} while (menu_num < 1 || menu_num > 4 || !is_valid_input);
 }
 
 
 
+
+
+void exit()
+{
+	cout << "\033[38;2;255;255;102m";
+	cout << endl;
+	cout << "\t\tBBBBBBBB   YYY    YYY  EEEEEEEEE\n";
+	cout << "\t\tBBBB  BBB  YYY    YYY  EEEEEEEEE\n";
+	cout << "\t\tBBBB   BBB YYY    YYY  EEE      \n";
+	cout << "\t\tBBBB  BBB  YYY    YYY  EEE      \n";
+	cout << "\t\tBBBBBBBB     YYYYYY    EEEEEEEEE\n";
+	cout << "\t\tBBBB  BBB     YYYY     EEE      \n";
+	cout << "\t\tBBBB   BBB    YYYY     EEE      \n";
+	cout << "\t\tBBBB  BBB     YYYY     EEEEEEEEE\n";
+	cout << "\t\tBBBBBBBB      YYYY     EEEEEEEEE\n";
+	cout << "\033[0m"; // Reset the color to default
+
+}
+
+
+
+
+
+void error_input()
+{
+	cout << "\033[1;31m"; // Set text color to red and bold
+	cout << endl;
+	cout << "EEEEEEEEE RRRRRRRR   RRRRRRRR   OOOOOOOOO RRRRRRRR\n";
+	cout << "EEEEEEEEE RRR   RRR  RRR   RRR  OOOOOOOOO RRR   RRR\n";
+	cout << "EEE       RRR    RRR RRR    RRR OOO   OOO RRR    RRR\n";
+	cout << "EEEEEEEEE RRR  RRRR  RRR  RRRR  OOO   OOO RRR  RRRR\n";
+	cout << "EEEEEEEEE RRRRRRRR   RRRRRRRR   OOO   OOO RRRRRRRR \n";
+	cout << "EEE       RRR    RRR RRR    RRR OOO   OOO RRR    RRR\n";
+	cout << "EEEEEEEEE RRR    RRR RRR    RRR OOOOOOOOO RRR    RRR\n";
+	cout << "EEEEEEEEE RRR    RRR RRR    RRR OOOOOOOOO RRR    RRR\n";
+	cout << endl;
+	cout << "\033[0m"; // Reset text color to default
+	cout << "\033[1;31m"; // Set text color to red and bold
+	cout << "Error Code 101: Invalid Input Number!!!\n";
+	cout << "\033[0m"; // Reset text color to default
+}
+
+
+
+
+
 //stock_management function
-void stock_manage();
+
 void stock_manage()
 {
 	int stock_num;
 	while (true) {
+		cout << "\033[38;2;255;255;102m";
+		cout << "\n STOCK MANAGEMENT\n";
+		cout << "****************************\n";
+		cout << "\033[0m"; // Reset the color to default
+		cout << endl;
 		cout << "\n1. Add new Products\n";
 		cout << "2. Delete Products\n";
 		cout << "3. Restock Products\n";
@@ -111,7 +171,7 @@ void stock_manage()
 			break;
 		}
 
-		cout << "Invalid input. Please enter a number between 1 and 8.\n";
+		error_input();
 	}
 
 	switch (stock_num) {
@@ -149,17 +209,7 @@ void stock_manage()
 		break;
 	default:
 		system("cls");
-		cout << endl;
-		cout << "EEEEEEEEE RRRRRRRR   RRRRRRRR   OOOOOOOOO RRRRRRRR\n";
-		cout << "EEEEEEEEE RRR   RRR  RRR   RRR  OOOOOOOOO RRR   RRR\n";
-		cout << "EEE       RRR    RRR RRR    RRR OOO   OOO RRR    RRR\n";
-		cout << "EEEEEEEEE RRR  RRRR  RRR  RRRR  OOO   OOO RRR  RRRR\n";
-		cout << "EEEEEEEEE RRRRRRRR   RRRRRRRR   OOO   OOO RRRRRRRR\n";
-		cout << "EEE       RRR    RRR RRR    RRR OOO   OOO RRR    RRR\n";
-		cout << "EEEEEEEEE RRR    RRR RRR    RRR OOOOOOOOO RRR    RRR\n";
-		cout << "EEEEEEEEE RRR    RRR RRR    RRR OOOOOOOOO RRR    RRR\n";
-		cout << endl;
-		cout << "Error Code 101: Invalid Input Number!!!\n";
+		error_input();
 		stock_manage();
 		break;
 	}
@@ -169,7 +219,7 @@ void stock_manage()
 
 
 //Add New product function
-void addproducts();
+
 void addproducts()
 {
 	string prod_name_list[100];
@@ -262,7 +312,7 @@ void addproducts()
 
 
 //Delete Product function
-void delproducts();
+
 void delproducts()
 {
 	string prod_id_list[MAX_PRODUCTS], prod_name_list[MAX_PRODUCTS], prod_price_list[MAX_PRODUCTS], prod_quant_list[MAX_PRODUCTS];
@@ -409,7 +459,7 @@ void delproducts()
 
 
 //Display Item Function
-void display_stock();
+
 void display_stock()
 {
 	ifstream inFile;
@@ -442,7 +492,7 @@ void display_stock()
 
 
 //Restock function
-void update_quant();
+
 void update_quant()
 {
 	string prod_id_list[MAX_PRODUCTS], prod_name_list[MAX_PRODUCTS], prod_price_list[MAX_PRODUCTS], prod_quant_list[MAX_PRODUCTS];
@@ -564,7 +614,7 @@ void update_quant()
 
 
 //Update new cost function
-void update_price();
+
 void update_price()
 {
 	string prod_id_list[MAX_PRODUCTS], prod_name_list[MAX_PRODUCTS], prod_price_list[MAX_PRODUCTS], prod_quant_list[MAX_PRODUCTS];
@@ -653,7 +703,7 @@ void update_price()
 		outFile.close();
 		cout << "New cost of Product " << prod_id << " has been updated successfully." << endl;
 
-		while (ask = true)
+		while (ask == true)
 		{
 			cout << "Do you want to continue update new cost?(Y/N): ";
 			cin >> con_price;
@@ -686,7 +736,6 @@ void update_price()
 
 
 //Update Name function
-void update_name();
 void update_name()
 {
 	string prod_id_list[MAX_PRODUCTS], prod_name_list[MAX_PRODUCTS], prod_price_list[MAX_PRODUCTS], prod_quant_list[MAX_PRODUCTS];
@@ -778,7 +827,7 @@ void update_name()
 
 		while (ask == true)
 		{
-			cout << "Do you want to continue restocking? (Y/N): ";
+			cout << "Do you want to continue renaming? (Y/N): ";
 			cin >> con_name;
 
 			if (toupper(con_name) != 'Y' && toupper(con_name) != 'N')
@@ -810,7 +859,7 @@ void update_name()
 
 
 //search product function
-void search_item();
+
 void search_item()
 {
 	string prod_id_list[MAX_PRODUCTS], prod_name_list[MAX_PRODUCTS], prod_price_list[MAX_PRODUCTS], prod_quant_list[MAX_PRODUCTS];
@@ -859,6 +908,7 @@ void search_item()
 	cout << endl;
 	cout << "Please enter your choice: ";
 	cin >> choice;
+	cin.ignore();
 
 	if (choice == 1)
 	{
@@ -866,6 +916,7 @@ void search_item()
 		system("cls");
 		cout << "\nPlease key in the ID: ";
 		cin >> prod_id;
+		cin.ignore();
 
 		cout << endl;
 		cout << "ID\t\t Name\t\t Cost\t\t Quantity\n";
@@ -892,10 +943,12 @@ void search_item()
 
 	else if (choice == 2)
 	{
-		string prod_name;
+
 		system("cls");
+		string prod_name;
 		cout << "\nPlease key in the NAME(In Capital Letter): ";
 		getline(cin, prod_name);
+		cin.ignore();
 
 		cout << endl;
 		cout << "ID\t\t Name\t\t Cost\t\t Quantity\n";
@@ -949,7 +1002,7 @@ void search_item()
 
 
 
-void stock_out();
+
 void stock_out()
 {
 	string prod_id_list[MAX_PRODUCTS], prod_name_list[MAX_PRODUCTS], prod_price_list[MAX_PRODUCTS], prod_quant_list[MAX_PRODUCTS];
@@ -997,30 +1050,39 @@ void stock_out()
 	}
 	while (del == true)
 	{
-		cout << "\nPLease enter the product ID which you want to check out: ";
-		cin >> prod_id;
-		cout << "\nPlease enter the quantity of the product you want to check out: ";
-		cin >> stock_quant;
+		bool valid_input = false; // initialize valid_input to false
 
-		bool valid_input = false;
-
-		// loop through the product list to find the matching product id
-		for (int z = 0; z < j; z++)
+		while (!valid_input) // loop while valid_input is false
 		{
-			if (R_prod_id_list[z] == prod_id)
+			cout << "\nPlease enter the product ID which you want to check out: ";
+			cin >> prod_id;
+			cout << "\nPlease enter the quantity of the product you want to check out: ";
+			cin >> stock_quant;
+
+			// loop through the product list to find the matching product id
+			for (int z = 0; z < j; z++)
 			{
-				if (R_prod_quant_list[z] >= stock_quant)
+				if (R_prod_id_list[z] == prod_id)
 				{
-					R_prod_quant_list[z] = R_prod_quant_list[z] - stock_quant;
-					valid_input = true; // set valid_input to true if the input is valid
-				}
-				else
-				{
-					cout << "Sorry you can only check out " << R_prod_quant_list[z] << " of the stock.";
-					break; // break out of the loop if the input is invalid
+					if (R_prod_quant_list[z] >= stock_quant)
+					{
+						R_prod_quant_list[z] = R_prod_quant_list[z] - stock_quant;
+						valid_input = true; // set valid_input to true if the input is valid
+					}
+					else
+					{
+						cout << "Sorry, you can only check out " << R_prod_quant_list[z] << " of the stock.\n";
+						break; // break out of the loop if the input is invalid
+					}
 				}
 			}
+
+			if (!valid_input) // if the input is invalid, loop back to the question part to ask again
+			{
+				cout << "\nInvalid input. Please try again.\n";
+			}
 		}
+
 
 		if (valid_input) // if the input is valid, write to the file and ask if the user wants to continue
 		{
@@ -1045,13 +1107,12 @@ void stock_out()
 				else {
 					outFile << R_prod_quant_list[z] << endl;
 				}
-				cout << "\nThe new quantity of the stock is updated.\n";
 			}
 
 			outFile.close();
 			cout << "Stock of Product " << prod_id << " has been check out successfully." << endl;
 
-			while (ask = true)
+			while (ask == true)
 			{
 				cout << "Do you want to continue to check out the stock?(Y/N): ";
 				cin >> con_out;
@@ -1089,7 +1150,7 @@ void stock_out()
 
 
 
-void insuff_stock();
+
 void insuff_stock()
 {
 	string prod_id_list[MAX_PRODUCTS], prod_name_list[MAX_PRODUCTS], prod_price_list[MAX_PRODUCTS], prod_quant_list[MAX_PRODUCTS];
